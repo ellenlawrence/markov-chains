@@ -1,7 +1,7 @@
 """Generate Markov text from text files."""
 
 from random import choice
-
+from collections import defaultdict
 
 def open_and_read_file(file_path):
     """Take file path as string; return text as string.
@@ -10,11 +10,9 @@ def open_and_read_file(file_path):
     the file's contents as one string of text.
     """
 
-    file_data = open(file_path)
-    accessed_file = file_data.read()
-    print(accessed_file)
+    file_data = open(file_path).read()
 
-    return accessed_file
+    return file_data
 
 
 def make_chains(text_string):
@@ -42,9 +40,17 @@ def make_chains(text_string):
         [None]
     """
 
-    chains = {}
+    chains = defaultdict(list)
+    
+    words = text_string.split()
 
-    # your code goes here
+    for index, word in enumerate(words):
+        if index == len(words) - 2:
+            break
+        chains[(word, words[index + 1])].append(words[index + 2])
+
+    # for chain, words in chains.items():
+    #     print(f'{chain}: {words}')
 
     return chains
 
