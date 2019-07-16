@@ -56,11 +56,22 @@ def make_chains(text_string):
 
 
 def make_text(chains):
-    """Return text from chains."""
+    """Return text from chains.""" 
 
     words = []
 
-    # your code goes here
+    keys_chain = chains.keys() #makes a list of the keys in chains
+    keys_chain = list(keys_chain) #made keys_chain into an iterable list
+    bigrm = choice(keys_chain) #randomly chooses a tuple from keys
+    
+    words.append(bigrm[0]) 
+    words.append(bigrm[1])
+
+    while len(words) < 50 and bigrm in chains:
+        new_word = choice(chains[bigrm])
+        words.append(new_word)
+        bigrm = (bigrm[1], new_word)
+
 
     return " ".join(words)
 
