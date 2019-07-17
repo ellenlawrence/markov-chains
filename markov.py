@@ -60,20 +60,27 @@ def make_text(chains):
     # keys_chain = list(keys_chain) #made keys_chain into an iterable list
     keys_chain = list(chains)
     bigrm = choice(keys_chain) #randomly chooses a tuple from keys
-    print(bigrm)
     if bigrm[0][0] == bigrm[0][0].upper():
         words.extend(bigrm)
     elif bigrm[1][0] == bigrm[1][0].upper():
-        words.extend(bigrm[1])
+        words.append(bigrm[1])
     
     # words.append(bigrm[0]) 
     # words.append(bigrm[1])
-
-    while len(words) < 100 and bigrm in chains:
+    punc_occ = 0
+    punct = '!?.'
+    while punc_occ <= 6 and bigrm in chains:
         new_word = choice(chains[bigrm])
-        print(new_word)
-        if bigrm[1] in words or new_word[0] == new_word[0].upper():
+        end_char = new_word[-1]
+
+        if end_char in punct and bigrm[1] in words:
+            punc_occ += 1
+            # line_end = new_word + "\n"
             words.append(new_word)
+        elif bigrm[1] in words or new_word[0] == new_word[0].upper():
+            words.append(new_word)
+
+
 
         bigrm = (bigrm[1], new_word)
 
